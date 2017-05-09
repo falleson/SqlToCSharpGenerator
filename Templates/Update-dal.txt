@@ -1,0 +1,24 @@
+﻿/// <summary>
+/// 更新{TableName}记录
+/// </summary>
+/// <param name="entity">{TableName}实体</param>
+/// <returns>Return t/f</returns>
+public int Update({TableName}Entity entity)
+{
+   try
+   {
+	using (var dataAccess = new CNMPDataAccess())
+	{
+		var spPara = new DynamicParameters();
+{Parameters}
+		int result = dataAccess.ExecuteScalar<int>(CommandType.StoredProcedure, "uspUpdate{TableName}", spPara, null, true);
+
+		return result;
+	}
+    }
+	catch (Exception ex)
+    {
+        LogHelper.Error("更新数据操作异常" + ex);
+        throw new SystemException(((int)SystemCodeStatus.DataAccessError).ToString(), ex);
+    }      
+}

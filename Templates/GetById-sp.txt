@@ -1,0 +1,49 @@
+﻿USE [CNMP]
+GO
+/****** Object:  StoredProcedure [dbo].[{ProcedureName}]    Script Date: {CreatedTime} ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		{Author}
+-- Create date: {CreatedTime}
+-- Description:	—— 根据主键，从表{TableName}选择一条数据（）
+-- Input:
+--@{KeyColumn} [INT]                唯一编号，自增标志列
+
+-- Output:
+--    返回值：
+{ParameterComments}
+
+-- 測試 sql
+-- EXEC [dbo].[{ProcedureName}] 
+		--@{KeyColumn} = 11
+
+-- Modify:
+-- =============================================
+CREATE PROCEDURE [dbo].[{ProcedureName}]
+		@{KeyColumn} INT
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+		DECLARE @_{KeyColumn} INT 
+
+		SET @_{KeyColumn} = @{KeyColumn}
+
+		SELECT
+{Columns}
+		FROM [dbo].[{TableName}] WITH (NOLOCK)
+		WHERE
+			Valid = 1 
+			AND {KeyColumn} = @_{KeyColumn} 
+		
+	END
+END TRY
+BEGIN CATCH
+	EXEC dbo.uspRaiseError;
+END CATCH
+GO
+	GRANT EXEC ON [dbo].[{ProcedureName}] TO [CNMPacct]
+GO

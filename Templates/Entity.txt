@@ -1,0 +1,7 @@
+﻿/// <summary>
+/// {EntityName}实体
+/// </summary>
+public class {EntityName}Entity
+{
+{EntityBody}
+}

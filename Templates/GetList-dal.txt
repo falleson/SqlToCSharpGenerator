@@ -1,0 +1,22 @@
+﻿/// <summary>
+/// 获取{TableName}列表
+/// </summary>
+/// <returns></returns>
+public List<{TableName}Entity> GetAll()
+{
+    try
+    {
+        using (var dataAccess = new CNMPDataAccess())
+        {
+            var spPara = new DynamicParameters();
+            var data = dataAccess.Query<{TableName}Entity>(CommandType.StoredProcedure, "{ProcedureName}", spPara);
+
+            return data;
+        }
+    }
+    catch (Exception ex)
+    {
+        LogHelper.Error("获取列表数据操作异常" + ex);
+        throw new SystemException(((int)SystemCodeStatus.DataAccessError).ToString(), ex);
+    }
+}

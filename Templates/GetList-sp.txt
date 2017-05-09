@@ -1,0 +1,43 @@
+﻿USE [CNMP]
+GO
+/****** Object:  StoredProcedure [dbo].[{ProcedureName}]    Script Date: {CreatedTime} ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		{Author}
+-- Create date: {CreatedTime}
+-- Description:	—— 根据条件，从表{TableName}选择数据（）
+-- Input:
+
+-- Output:
+--    返回值：
+{ParameterComments}
+
+-- 測試 sql
+-- EXEC [dbo].[{ProcedureName}] 
+
+-- Modify:
+-- =============================================
+CREATE PROCEDURE [dbo].[{ProcedureName}]
+
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+
+		SELECT
+{Columns}
+		FROM [dbo].[{TableName}] WITH (NOLOCK)
+		WHERE
+			Valid = 1 
+
+	END
+END TRY
+BEGIN CATCH
+	EXEC dbo.uspRaiseError;
+END CATCH
+GO
+	GRANT EXEC ON [dbo].[{ProcedureName}] TO [CNMPacct]
+GO

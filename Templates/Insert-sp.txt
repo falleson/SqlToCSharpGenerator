@@ -1,0 +1,43 @@
+﻿USE [CNMP]
+GO
+/****** Object:  StoredProcedure [dbo].[{ProcedureName}]    Script Date: {CreatedTime} ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		{Author}
+-- Create date: {CreatedTime}
+-- Description:	—— 表{TableName}插入数据（）
+-- Input:
+{ParameterComments}
+-- Output:
+--    返回值：
+--[Sn] [int]
+-- =============================================
+
+CREATE PROCEDURE [dbo].[{ProcedureName}]
+{Parameters}
+AS
+BEGIN TRY
+	BEGIN
+	    SET NOCOUNT ON;
+{InternalParametersDeclaration}
+{InternalParametersAssignment}
+		INSERT INTO [dbo].[{TableName}]
+		(
+{Columns}
+		)
+		VALUES
+		(
+{ColumnValues}
+		)
+		SELECT SCOPE_IDENTITY() AS Sn;
+	END
+END TRY
+BEGIN CATCH
+	EXEC dbo.uspRaiseError;
+END CATCH
+GO
+	GRANT EXEC ON [dbo].[{ProcedureName}] TO [CNMPacct]
+GO

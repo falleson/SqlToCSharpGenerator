@@ -1,0 +1,47 @@
+﻿USE [CNMP]
+GO
+/****** Object:  StoredProcedure [dbo].[{ProcedureName}]    Script Date: {CreatedTime} ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		{Author}
+-- Create date: {CreatedTime}
+-- Description:	删除{TableName}记录
+-- Input:
+--		@{KeyColumn}	 : 记录编号
+
+-- Output:
+--    返回值：受影响的行数
+    
+-- 測試 sql
+-- EXEC [dbo].[{ProcedureName}] 
+		--@{KeyColumn} = 0,
+
+-- Modify:
+-- =============================================
+CREATE PROCEDURE [dbo].[{ProcedureName}]
+	@{KeyColumn} INT = 1
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+		DECLARE @_{KeyColumn} INT
+
+		Set @_{KeyColumn} = @{KeyColumn}
+
+		DELETE FROM [dbo].[{TableName}]
+            WHERE {KeyColumn}=@_{KeyColumn} 
+
+	   SELECT @@rowcount
+	   
+	END
+END TRY
+BEGIN CATCH
+    EXEC dbo.uspRaiseError;
+END CATCH
+GO
+
+GRANT EXEC ON dbo.[{ProcedureName}] TO [CNMPacct]
+GO

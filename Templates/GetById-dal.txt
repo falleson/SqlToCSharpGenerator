@@ -1,0 +1,24 @@
+﻿/// <summary>
+/// 获取单个实体
+/// </summary>
+/// <param name="sn">{TableName}编号</param>
+/// <returns>{TableName}实体</returns>
+public {TableName}Entity GetById(int sn)
+{
+    try
+    {
+        using (var dataAccess = new CNMPDataAccess())
+        {
+            var spPara = new DynamicParameters();
+            spPara.Add("@{KeyColumn}", sn, DbType.Int32);
+
+            var data = dataAccess.Single<{TableName}Entity>(CommandType.StoredProcedure, "{ProcedureName}", spPara);
+            return data;
+        }
+    }
+    catch (Exception ex)
+    {
+        LogHelper.Error("获取单条记录数据操作异常" + ex);
+        throw new SystemException(((int)SystemCodeStatus.DataAccessError).ToString(), ex);
+    }
+}

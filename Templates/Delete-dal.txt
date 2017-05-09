@@ -1,0 +1,24 @@
+﻿/// <summary>
+/// 删除{TableName}记录
+/// </summary>
+/// <param name="sn">{TableName}记录编号</param>
+public int Delete(int sn)
+{
+    try
+    {
+        using (var dataAccess = new CNMPDataAccess())
+        {
+            var spPara = new DynamicParameters();
+            spPara.Add("@{KeyColumn}", sn, DbType.Int32);
+
+            int result = dataAccess.ExecuteScalar<int>(CommandType.StoredProcedure, "{ProcedureName}", spPara, null, true);
+
+            return result;
+        }
+    }
+    catch (Exception ex)
+    {
+        LogHelper.Error("删除数据操作异常" + ex);
+        throw new SystemException(((int)SystemCodeStatus.DataAccessError).ToString(), ex);
+    }
+}

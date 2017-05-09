@@ -1,0 +1,44 @@
+﻿USE [CNMP]
+GO
+/****** Object:  StoredProcedure [dbo].[{ProcedureName}]    Script Date: {CreatedTime} ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		{Author}
+-- Create date: {CreatedTime}
+-- Description:	—— 表{TableName}通过主键更新一条数据（）
+-- Input:
+{ParameterComments}
+-- Output:
+--    返回值：执行成功返回1
+-- 測試 sql
+
+-- Modify:
+-- =============================================
+
+CREATE PROCEDURE [dbo].[{ProcedureName}]
+{Parameters}
+AS
+BEGIN TRY
+	BEGIN
+		SET NOCOUNT ON;
+{InternalParametersDeclaration}
+{InternalParametersAssignment}
+
+		UPDATE [dbo].[{TableName}] 
+		SET 
+{UpdatingColumns}
+		WHERE 
+{UpdatingWhere}
+
+		SELECT 1;
+	END
+END TRY
+BEGIN CATCH
+	EXEC dbo.uspRaiseError;
+END CATCH
+GO
+	GRANT EXEC ON [dbo].[{ProcedureName}] TO [CNMPacct]
+GO
